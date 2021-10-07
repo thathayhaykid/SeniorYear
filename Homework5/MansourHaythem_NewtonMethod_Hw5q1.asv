@@ -1,0 +1,35 @@
+% Thermal Systems Design - Homework 5 - Question 1
+% Using the Newton Method, Solve for Vdot
+
+Tf = 105; % deg F
+Ti = 110; % deg F
+Tin = 70; % deg F
+Qdot = 12000; % btu
+Density = 61.991; % lbm / ft^3
+Cp = 0.99893; % Btu / lbm * R
+ff = 0.02;
+
+addff = 0.000001;
+
+eps = 1;
+
+while eps > 1e-6
+    
+    oldff = ff;
+    
+    fcnff = MansourHaythem_VdotFunc(ff, Re, Roughness);
+    
+    fcnffaddff = MansourHaythem_VdotFunc(ff+addff, Re, Roughness);
+    
+    slope = (fcnffaddff - fcnff) / addff;
+    
+    delff = -fcnff / slope;
+    ff = oldff + delff;
+    
+    eps = abs(delff/oldff);
+    
+end
+
+
+ff
+
